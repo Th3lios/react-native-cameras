@@ -39,6 +39,7 @@ import Photo from '../screens/PhotoScreen';
 import Video from '../screens/VideoScreen';
 import Play from '../screens/PlayScreen';
 import Login from '../screens/LoginScreen';
+import Register from '../screens/RegisterScreen';
 import Logout from '../screens/LogoutScreen';
 
 
@@ -83,6 +84,7 @@ const App = (props) => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
+          <Stack.Screen name='Register' component={Register} options={{headerShown:false}}/>
         </Stack.Navigator>
       </NavigationContainer>
     )

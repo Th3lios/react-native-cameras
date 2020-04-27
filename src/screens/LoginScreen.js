@@ -17,8 +17,7 @@ import {
   Keyboard
 } from 'react-native';
 
-import { useSelector, useDispatch  ,connect } from 'react-redux'
-import { Provider } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 import { loginAuthentication } from '../store/actions/authentication'
 
 const {width, height} = Dimensions.get('window');

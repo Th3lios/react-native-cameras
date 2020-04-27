@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   insideBall:{
-    backgroundColor: '#ffff',
+    backgroundColor: '#fff',
     borderRadius: (width),
     height:(width/7),
     width: (width/7),

@@ -25,23 +25,44 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Video from './src/components/Camera/Record'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+import Camera from './src/screens/CameraScreen';
+import Photo from './src/screens/PhotoScreen';
+// import Video from './src/screens/VideoScreen';
+// import Play from './src/screens/PlayScreen';
+
+
 import Icon from 'react-native-vector-icons/Ionicons'
 Icon.loadFont()
 
 const Stack = createStackNavigator();
+const BottomTabs = createMaterialBottomTabNavigator();
+
+const createPhotoStack = () =>{
+  return(
+      <Stack.Navigator>
+        <Stack.Screen name='Camera' component={Camera} options={{headerShown:false}}/>
+        <Stack.Screen name='Photo' component={Photo} options={{headerShown:false, tabBarVisible:false}}/>
+      </Stack.Navigator>
+  );
+}
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Video/>
-      </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <BottomTabs.Navigator>
+      <BottomTabs.Screen name="Camera" children={createPhotoStack} options={{
+              tabBarLabel: 'Camera',
+              tabBarIcon: ({ color }) => (
+                <Icon name="md-camera" color={color} size={26} />
+              ),
+      }}/>
+      </BottomTabs.Navigator>
+    </NavigationContainer>
   );
 };
 

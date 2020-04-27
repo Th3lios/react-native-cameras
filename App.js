@@ -26,6 +26,13 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Video from './src/components/Camera/Record'
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Icon from 'react-native-vector-icons/Ionicons'
+Icon.loadFont()
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (

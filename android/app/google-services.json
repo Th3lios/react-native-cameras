@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "789770835327",
+    "firebase_url": "https://camera-60fe8.firebaseio.com",
+    "project_id": "camera-60fe8",
+    "storage_bucket": "camera-60fe8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789770835327:android:f63e54ea3ffcf6bd12f64a",
+        "android_client_info": {
+          "package_name": "com.reactnativecamera"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789770835327-8t2rnhd9rahpgpdljgr3f58s7g0m3r36.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQQQ7jIyU-Kym1iZ90DOii3-XuQtBrZ-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789770835327-8t2rnhd9rahpgpdljgr3f58s7g0m3r36.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "789770835327-i0v6fenbb2r5he1gm4f580jf2154vl89.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.camera"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

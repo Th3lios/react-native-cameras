@@ -41,13 +41,17 @@ class Photo extends PureComponent {
             console.log(barcodes);
           }}
         >
-            <View style={{flex:1, flexDirection:"row", alignItems:"flex-end"}}>
-                <View style={{flex:1, justifyContent:'center', alignItems:'center', height:(width/2), width:(width)}}>
-                    <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-                        {/* <Text style={{ fontSize: 14, alignSelf:'center' }}> SNAP </Text> */}
-                    </TouchableOpacity>
+
+        <View style={{flex:1, flexDirection:"row", alignItems:"flex-end"}}>
+          <View style={{flex:1, justifyContent:'center', alignItems:'center', height:(width/2), width:(width)}}>
+              <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
+                  {/* <Text style={{ fontSize: 14, alignSelf:'center' }}> SNAP </Text> */}
+                <View style={styles.insideBall}>
                 </View>
+              </TouchableOpacity>
+          </View>
         </View>
+
         </RNCamera>
         
       </SafeAreaView>
@@ -71,10 +75,19 @@ const styles = StyleSheet.create({
     width:'100%'
   },
   capture: {
-    backgroundColor: '#eeee',
+    borderWidth: 5,
+    borderColor:'#eeee',
     borderRadius: (width),
-    height:(width/4),
-    width: (width/4),
+    height:(width/5),
+    width: (width/5),
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  insideBall:{
+    backgroundColor: '#ffff',
+    borderRadius: (width),
+    height:(width/7),
+    width: (width/7),
     justifyContent:'center'
   },
 });

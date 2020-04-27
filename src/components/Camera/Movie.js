@@ -24,9 +24,10 @@ export default class Movie extends Component {
                 onEnd={this.onEnd}                      // Callback when playback finishes
                 onError={this.videoError}               // Callback when video cannot be loaded
                 style={styles.backgroundVideo}/>
+
                 <TouchableOpacity onPress={()=>this.props.navigation.goBack()}style={{paddingHorizontal: 20,}}>
-                  <Icon color='white' name='ios-close' size={55}/>
-                </TouchableOpacity>
+                    <Icon color='white' name='ios-close' size={55}/>
+                  </TouchableOpacity>
             </View>
             );
         }

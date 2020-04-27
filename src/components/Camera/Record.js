@@ -77,16 +77,16 @@ class Record extends Component {
                 buttonNegative: 'Cancel',
               }}
           >
-            {/* <View style = {{flexDirection: 'column', alignItems:'center'}}>
-              <TouchableOpacity onPress = {this.takeVideo.bind(this)}>
-                <Text style = {{backgroundColor: 'white'}}>[CAPTURE]</Text>
-              </TouchableOpacity>
-            </View> */}
 
             <View style={{flex:1, flexDirection:"row", alignItems:"flex-end"}}>
                  <View style={{flex:1, justifyContent:'center', alignItems:'center', height:(width/2), width:(width)}}>
-                     <TouchableOpacity onPress={this.takeVideo.bind(this)} style={this.setState.isRecording ? styles.recording : styles.capture}>
+                     <TouchableOpacity onPress={this.takeVideo.bind(this)} style={styles.capture}>
                          {/* <Text style={{ fontSize: 14, alignSelf:'center' }}> SNAP </Text> */}
+                         <View style={this.state.isRecording ? styles.recording : styles.insideBall}>
+                            <Text style={ this.state.isRecording ? styles.textRecording : styles.textInsideBall }>
+                            {this.state.timer === 0 ? 'End' : this.state.timer }
+                            </Text>
+                          </View>
                      </TouchableOpacity>
                  </View>
             </View>
@@ -130,19 +130,38 @@ const styles = StyleSheet.create({
     width:'100%'
   },
   capture: {
-    backgroundColor: '#eeee',
+    borderWidth: 5,
+    borderColor:'#eeee',
     borderRadius: (width),
-    height:(width/4),
-    width: (width/4),
-    justifyContent:'center'
+    height:(width/5),
+    width: (width/5),
+    justifyContent:'center',
+    alignItems:'center'
   },
   recording: {
     backgroundColor: 'red',
     borderRadius: (width),
-    height:(width/4),
-    width: (width/4),
+    height:(width/7),
+    width: (width/7),
     justifyContent:'center'
   },
+  insideBall:{
+    backgroundColor: '#ffff',
+    borderRadius: (width),
+    height:(width/7),
+    width: (width/7),
+    justifyContent:'center'
+  },
+  textRecording:{
+    alignSelf:'center',
+    fontSize: 18, 
+    color: '#ffff'
+  },
+  textInsideBall:{
+    alignSelf:'center',
+    fontSize: 18, 
+    color: '#000'
+  }
 });
 
 export default Record

@@ -8,7 +8,7 @@ function PlayScreen(props) {
         <>
         <Movie videoPath={videoPath} navigation={props.navigation}/>
         </>
-    )
+    );
 }
 
 // Later on in your styles..

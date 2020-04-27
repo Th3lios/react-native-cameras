@@ -39,6 +39,7 @@ import Photo from '../screens/PhotoScreen';
 import Video from '../screens/VideoScreen';
 import Play from '../screens/PlayScreen';
 import Login from '../screens/LoginScreen';
+import Logout from '../screens/LogoutScreen';
 
 
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -67,6 +68,14 @@ const createVideoStack = () =>{
   );
 }
 
+const createLogoutStack = () =>{
+  return(
+      <Stack.Navigator>
+        <Stack.Screen name='Logout' component={Logout} options={{headerShown:false}}/>
+      </Stack.Navigator>
+  );
+}
+
 const App = (props) => {
   const authState = useSelector(state => state.user.auth)
   if(!authState){
@@ -91,6 +100,12 @@ const App = (props) => {
           tabBarLabel: 'Camera',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-videocam" color={color} size={26} />
+          ),
+        }}/>
+        <BottomTabs.Screen name="Logout" children={createLogoutStack} options={{
+          tabBarLabel: 'Log out',
+          tabBarIcon: ({ color }) => (
+            <Icon name="ios-log-out" color={color} size={26} />
           ),
         }}/>
         </BottomTabs.Navigator>

@@ -1,5 +1,5 @@
 import {USERS} from '../../data/dummyData';
-import { LOGIN_AUTHENTICATION } from '../actions/authentication';
+import { LOGIN_AUTHENTICATION, LOG_OUT } from '../actions/authentication';
 import {Alert} from 'react-native'
 const initialState = {
     users: USERS,
@@ -21,7 +21,11 @@ const authReducer = (state = initialState, action) => {
                     state
                 )
             }
-
+        case LOG_OUT:
+            return {
+                ...state,
+                auth: false
+            }
         default:
             return state
     }

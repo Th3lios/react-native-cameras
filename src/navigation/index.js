@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,6 +25,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import { connect, useSelector } from 'react-redux'
+
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -36,6 +38,7 @@ import Camera from '../screens/CameraScreen';
 import Photo from '../screens/PhotoScreen';
 import Video from '../screens/VideoScreen';
 import Play from '../screens/PlayScreen';
+import Login from '../screens/LoginScreen';
 
 
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -55,7 +58,7 @@ const createPhotoStack = () =>{
   );
 }
 
-const createVideoStack = ({navigation}) =>{
+const createVideoStack = () =>{
   return(
       <Stack.Navigator>
         <Stack.Screen name='Video' component={Video} options={{headerShown:false}}/>
@@ -64,25 +67,36 @@ const createVideoStack = ({navigation}) =>{
   );
 }
 
-const App = () => {
+const App = (props) => {
+  const authState = useSelector(state => state.user.auth)
+  if(!authState){
+    return(
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    )
+  } else {
   return (
-    <NavigationContainer>
-      <BottomTabs.Navigator>
-      <BottomTabs.Screen name="Camera" children={createPhotoStack} options={{
-              tabBarLabel: 'Camera',
-              tabBarIcon: ({ color }) => (
-                <Icon name="md-camera" color={color} size={26} />
-              ),
-      }}/>
-      <BottomTabs.Screen name="Record" children={createVideoStack} options={{
-              tabBarLabel: 'Camera',
-              tabBarIcon: ({ color }) => (
-                <Icon name="ios-videocam" color={color} size={26} />
-              ),
-      }}/>
-      </BottomTabs.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <BottomTabs.Navigator>
+        <BottomTabs.Screen name="Camera" children={createPhotoStack} options={{
+          tabBarLabel: 'Camera',
+          tabBarIcon: ({ color }) => (
+            <Icon name="md-camera" color={color} size={26} />
+          ),
+        }}/>
+        <BottomTabs.Screen name="Record" children={createVideoStack} options={{
+          tabBarLabel: 'Camera',
+          tabBarIcon: ({ color }) => (
+            <Icon name="ios-videocam" color={color} size={26} />
+          ),
+        }}/>
+        </BottomTabs.Navigator>
+      </NavigationContainer>
   );
+} 
 };
 
 const styles = StyleSheet.create({

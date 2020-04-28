@@ -12,7 +12,7 @@ import {
   KeyboardAvoidingView
 } from 'react-native';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
-
+import firebase, { addUser } from '../firebase/Firebase'
 export default class register extends Component {
 
   constructor(props) {
@@ -32,6 +32,17 @@ export default class register extends Component {
     }
   }
 
+  _handleMultiInput(name) {
+    return (text) => {
+        if (name === 'email'){
+            this.setState({ [name]:text.toLowerCase() })
+        } else {
+            this.setState({ [name]:text })
+        }
+
+    }
+}
+
   render() {
     return (
       <>
@@ -44,7 +55,7 @@ export default class register extends Component {
               placeholder="Nombre"
               placeholderTextColor="rgba(255,255,255,0.5)" 
               underlineColorAndroid='transparent'
-              onChangeText={(name) => this.setState({name})}/>
+              onChangeText={this._handleMultiInput('name')}/>
         </View>
         
         <View style={styles.inputContainer}>
@@ -53,7 +64,7 @@ export default class register extends Component {
               placeholder="Apellido"
               placeholderTextColor="rgba(255,255,255,0.5)" 
               underlineColorAndroid='transparent'
-              onChangeText={(lastName) => this.setState({lastName})}/>
+              onChangeText={this._handleMultiInput('lastName')}/>
         </View>
 
         <View style={styles.inputContainer}>
@@ -63,16 +74,15 @@ export default class register extends Component {
               placeholderTextColor="rgba(255,255,255,0.5)" 
               keyboardType="email-address"
               underlineColorAndroid='transparent'
-              onChangeText={(password) => this.setState({password})}/>
+              onChangeText={this._handleMultiInput('email')}/>
         </View>
 
         <View style={styles.inputContainer}>
           
           <TextInput style={styles.inputs}
               placeholder="Nombre de usuario"
-              placeholderTextColor="rgba(255,255,255,0.5)" 
-              underlineColorAndroid='transparent'
-              onChangeText={(username) => this.setState({username})}/>
+              placeholderTextColor="rgba(255,255,255,0.5)"
+              onChangeText={this._handleMultiInput('username')}/>
         </View>
 
         <View style={styles.inputContainer}>
@@ -82,12 +92,12 @@ export default class register extends Component {
               placeholderTextColor="rgba(255,255,255,0.5)" 
               secureTextEntry={true}
               underlineColorAndroid='transparent'
-              onChangeText={(password) => this.setState({password})}/>
+              onChangeText={this._handleMultiInput('password')}/>
         </View>
 
         <View style={{ width: '100%', alignItems: 'center', flex:1}}>
           <View style={{ width: '80%'}}>
-          <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.props.navigation.navigate('Login')}>
+          <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => {addUser({name:this.state.name, lastname:this.state.lastName, email:this.state.email, username:this.state.username, password:this.state.password});this.props.navigation.navigate('Login')}}>
               <Text style={styles.loginText}>Registrarse</Text> 
           </TouchableOpacity>        
          </View>

@@ -19,23 +19,38 @@ import {
 
 import { useSelector, useDispatch } from 'react-redux'
 import { loginAuthentication } from '../store/actions/authentication'
+import { getUsers } from '../firebase/Firebase'
 
 const {width, height} = Dimensions.get('window');
 
 function LoginScreen(props) {
 
   const [emailState, setEmailState] = useState({
-    email: ''
+    email:''
   })
-
   const [passwordState, setPasswordState] = useState({
-    password: ''
+    password:''
   })
 
+    /* Action */
     const state = useSelector(state => state.user.auth);
     const dispatch = useDispatch();
     const createLoginHandler = (user, password) => {
       dispatch(loginAuthentication(user, password));
+    }
+    /* Action */
+
+    const onUserReceived = (userList) => {
+      userList.forEach((user) => {
+        if (user.email === emailState.email.toLowerCase() && user.password === passwordState.password){
+            createLoginHandler(emailState.email, passwordState.password);
+        }
+      })
+      setEmailState
+    }
+
+    const componentDidMount = () => {
+      getUsers(onUserReceived);
     }
 
 
@@ -66,13 +81,13 @@ function LoginScreen(props) {
                 placeholderTextColor="rgba(255,255,255,0.5)" 
                 secureTextEntry={true}
                 underlineColorAndroid='transparent'
-                onChangeText={(password) => setPasswordState({password:password})}
+                onChangeText={(password) => setPasswordState({password})}
                 />
           </View>
 
           <View style={{ width: '100%', alignItems: 'center', height:(height)/4}}>
             <View style={{ width: '80%'}}>
-            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => createLoginHandler(emailState.email, passwordState.password)}>
+            <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={() => componentDidMount()}>
                 <Text style={styles.loginText}>Login</Text> 
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} onPress={() => onClickListener('restore_password')}>

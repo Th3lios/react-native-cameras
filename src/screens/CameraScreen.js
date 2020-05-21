@@ -1,13 +1,17 @@
-import React from 'react'
-import {} from 'react-native'
-import Camera from '../components/Camera/Photo'
+import React from 'react';
+import {} from 'react-native';
+import Camera from '../components/Camera/Photo';
 
 function CameraScreen(props) {
-    return (
-        <>
-        <Camera navigation={props.navigation}/>
-        </>
-    )
+  props.navigation.setOptions({
+    headerShown: false,
+    tabBarVisible: false,
+  });
+  return (
+    <>
+      <Camera navigation={props.navigation} />
+    </>
+  );
 }
 
-export default CameraScreen
+export default CameraScreen;

@@ -6,9 +6,8 @@ Icon.loadFont();
 const {width, height} = Dimensions.get('window');
 
 function PhotoScreen(props) {
-
     const { data } = props.route.params;
-    props.navigation.setOptions({ tabBarVisible: false })
+    
     return (
         <View style={styles.container}>
             <ImageBackground style={styles.image} source={data}>

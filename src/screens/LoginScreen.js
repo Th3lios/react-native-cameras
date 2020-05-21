@@ -33,7 +33,6 @@ function LoginScreen(props) {
   })
 
     /* Action */
-    const state = useSelector(state => state.user.auth);
     const dispatch = useDispatch();
     const createLoginHandler = (user, password) => {
       dispatch(loginAuthentication(user, password));

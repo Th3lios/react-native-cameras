@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,7 +14,7 @@ import {
   View,
   Text,
   StatusBar,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import {
@@ -25,14 +25,14 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { connect, useSelector } from 'react-redux'
+import {connect, useSelector} from 'react-redux';
 
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import Camera from '../screens/CameraScreen';
 import Photo from '../screens/PhotoScreen';
@@ -42,79 +42,123 @@ import Login from '../screens/LoginScreen';
 import Register from '../screens/RegisterScreen';
 import Logout from '../screens/LogoutScreen';
 
-
-import Icon from 'react-native-vector-icons/Ionicons'
-Icon.loadFont()
+import Icon from 'react-native-vector-icons/Ionicons';
+Icon.loadFont();
 
 const Stack = createStackNavigator();
 const BottomTabs = createMaterialBottomTabNavigator();
 const TopTab = createMaterialTopTabNavigator();
 const Drawer = createDrawerNavigator();
 
-const createPhotoStack = () =>{
-  return(
-      <Stack.Navigator>
-        <Stack.Screen name='Camera' component={Camera} options={{headerShown:false}}/>
-        <Stack.Screen name='Photo' component={Photo} options={{headerShown:false, tabBarVisible:false}}/>
-      </Stack.Navigator>
-  );
-}
-
-const createVideoStack = () =>{
-  return(
-      <Stack.Navigator>
-        <Stack.Screen name='Video' component={Video} options={{headerShown:false}}/>
-        <Stack.Screen name='Play' component={Play} options={{headerShown:false}}/>
-      </Stack.Navigator>
-  );
-}
-
-const createLogoutStack = () =>{
-  return(
-      <Stack.Navigator>
-        <Stack.Screen name='Logout' component={Logout} options={{headerShown:false}}/>
-      </Stack.Navigator>
-  );
-}
-
-const App = (props) => {
-  const authState = useSelector(state => state.user.auth)
-  if(!authState){
-    return(
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name='Login' component={Login} options={{headerShown:false}}/>
-          <Stack.Screen name='Register' component={Register} options={{headerShown:false}}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-    )
-  } else {
+const StackPhoto = createStackNavigator();
+const createPhotoStack = ({navigation, route, state}) => {
+  if (navigation.state) {
+    console.log('here: ' + navigation.state);
+  }
+  // console.log(route)
+  // console.log(navigation)
+  // console.log(state)
+  // navigation.setOptions({tabBarVisible:false})
   return (
-      <NavigationContainer>
-        <BottomTabs.Navigator>
-        <BottomTabs.Screen name="Camera" children={createPhotoStack} options={{
-          tabBarLabel: 'Camera',
-          tabBarIcon: ({ color }) => (
-            <Icon name="md-camera" color={color} size={26} />
-          ),
-        }}/>
-        <BottomTabs.Screen name="Record" children={createVideoStack} options={{
-          tabBarLabel: 'Camera',
-          tabBarIcon: ({ color }) => (
-            <Icon name="ios-videocam" color={color} size={26} />
-          ),
-        }}/>
-        <BottomTabs.Screen name="Logout" children={createLogoutStack} options={{
-          tabBarLabel: 'Log out',
-          tabBarIcon: ({ color }) => (
-            <Icon name="ios-log-out" color={color} size={26} />
-          ),
-        }}/>
-        </BottomTabs.Navigator>
-      </NavigationContainer>
+    <StackPhoto.Navigator>
+      <StackPhoto.Screen name="Camera" component={Camera} options={{}} />
+      <StackPhoto.Screen
+        name="Photo"
+        component={Photo}
+        options={{headerShown: false}}
+      />
+    </StackPhoto.Navigator>
   );
-} 
 };
+
+const createVideoStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Video"
+        component={Video}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Play"
+        component={Play}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const createLogoutStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Logout"
+        component={Logout}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+class App extends Component {
+  render() {
+    if (!this.props.authState) {
+      return (
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Register"
+              component={Register}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    } else {
+      return (
+        <NavigationContainer options={{tabBarVisible: false}}>
+          <BottomTabs.Navigator>
+            <BottomTabs.Screen
+              name="Camera"
+              children={createPhotoStack}
+              options={{
+                tabBarLabel: 'Camera',
+                tabBarIcon: ({color}) => (
+                  <Icon name="md-camera" color={color} size={26} />
+                ),
+              }}
+            />
+            <BottomTabs.Screen
+              name="Record"
+              children={createVideoStack}
+              options={{
+                tabBarLabel: 'Camera',
+                tabBarIcon: ({color}) => (
+                  <Icon name="ios-videocam" color={color} size={26} />
+                ),
+              }}
+            />
+            <BottomTabs.Screen
+              name="Logout"
+              children={createLogoutStack}
+              options={{
+                tabBarLabel: 'Log out',
+                tabBarIcon: ({color}) => (
+                  <Icon name="ios-log-out" color={color} size={26} />
+                ),
+              }}
+            />
+          </BottomTabs.Navigator>
+        </NavigationContainer>
+      );
+    }
+  }
+}
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -155,4 +199,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+const mapStateToProps = state => ({
+  authState: state.user.auth,
+});
+
+export default connect(
+  mapStateToProps,
+  null,
+)(App);

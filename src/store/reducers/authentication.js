@@ -4,7 +4,7 @@ import {Alert} from 'react-native'
 
 const initialState = {
     //users: USERS,
-    auth: false
+    auth: true
 }
 
 const authReducer = (state = initialState, action) => {
